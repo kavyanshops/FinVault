@@ -168,7 +168,7 @@ body {
     overflow: hidden;
 }
 
-.hero-background {
+/* .hero-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -205,13 +205,13 @@ body {
     bottom: -150px;
     left: -150px;
     animation: float 15s ease-in-out infinite reverse;
-}
+} */
 
-@keyframes float {
+/* @keyframes float {
     0%, 100% { transform: translate(0, 0) rotate(0deg); }
     33% { transform: translate(30px, -30px) rotate(120deg); }
     66% { transform: translate(-20px, 20px) rotate(240deg); }
-}
+} */
 
 .hero-content {
     max-width: 1400px;
@@ -875,4 +875,38 @@ body {
         width: 100%;
         justify-content: center;
     }
+}
+/* Feature Details List (add to existing styles.css) */
+.feature-details {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+}
+
+.feature-details li {
+    padding: 0.5rem 0;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.feature-card.featured .feature-details li {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.feature-details i {
+    color: var(--success-green);
+    font-size: 0.9rem;
+}
+
+.feature-card.featured .feature-details i {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Trust Section Updates */
+.trust-logo i {
+    color: var(--success-green);
+    margin-right: 0.5rem;
 }
