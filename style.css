@@ -758,6 +758,8 @@ body {
     justify-content: center;
     color: var(--white);
     transition: var(--transition);
+    text-align: center;
+    padding-top: 7px;
 }
 
 .social-links a:hover {
@@ -876,7 +878,6 @@ body {
         justify-content: center;
     }
 }
-/* Feature Details List (add to existing styles.css) */
 .feature-details {
     list-style: none;
     margin: 1.5rem 0;
@@ -905,7 +906,6 @@ body {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Trust Section Updates */
 .trust-logo i {
     color: var(--success-green);
     margin-right: 0.5rem;
