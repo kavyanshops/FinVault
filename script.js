@@ -94,10 +94,19 @@ window.addEventListener('load', function() {
     });
 });
 
-// 6. Button click effects
+// 6. Button click effects and navigation
 document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
     button.addEventListener('click', function(e) {
-        // Create ripple effect
+        // Check if button is "Get Started" or "Start Investing"
+        const buttonText = this.textContent.toLowerCase();
+        if (buttonText.includes('get started') || buttonText.includes('start investing') || buttonText.includes('open free account')) {
+            e.preventDefault();
+            // Navigate to login page
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Create ripple effect for other buttons
         const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
