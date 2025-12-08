@@ -210,6 +210,106 @@
             font-size: 0.9rem;
         }
 
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-blue);
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: var(--gray-200);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            background: #ef4444;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .strength-fill.weak {
+            width: 33%;
+            background: #ef4444;
+        }
+
+        .strength-fill.medium {
+            width: 66%;
+            background: #f59e0b;
+        }
+
+        .strength-fill.strong {
+            width: 100%;
+            background: var(--success-green);
+        }
+
+        .strength-text {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .strength-text.weak {
+            color: #ef4444;
+        }
+
+        .strength-text.medium {
+            color: #f59e0b;
+        }
+
+        .strength-text.strong {
+            color: var(--success-green);
+        }
+
+        .input-valid {
+            border-color: var(--success-green) !important;
+        }
+
+        .input-error {
+            border-color: #ef4444 !important;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(37, 99, 235, 0.2);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .login-box {
                 padding: 2rem;
@@ -245,7 +345,18 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <span class="strength-text" id="strengthText">Enter password</span>
+                    </div>
                 </div>
 
                 <div class="remember-forgot">
@@ -256,7 +367,12 @@
                     <a href="#forgot">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="login-btn">Login to FinVault</button>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 0.5rem; color: var(--gray-600); font-size: 0.9rem;">Logging in...</p>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">Login to FinVault</button>
             </form>
 
             <div class="divider">
@@ -283,61 +399,159 @@
 
     <script src="script.js"></script>
     <script>
-        // Login form handling
+        // Enhanced Login Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
+            const loading = document.getElementById('loading');
+            const loginBtn = document.getElementById('loginBtn');
 
+            // Password visibility toggle
+            if (passwordToggle) {
+                passwordToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const type = passwordInput.type === 'password' ? 'text' : 'password';
+                    passwordInput.type = type;
+                    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                });
+            }
+
+            // Real-time password strength checker
+            if (passwordInput) {
+                passwordInput.addEventListener('input', function() {
+                    const strength = calculatePasswordStrength(this.value);
+                    updateStrengthIndicator(strength);
+                    
+                    // Real-time validation styling
+                    if (this.value.length >= 6) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-valid');
+                    } else if (this.value.length > 0) {
+                        this.classList.add('input-error');
+                        this.classList.remove('input-valid');
+                    } else {
+                        this.classList.remove('input-error', 'input-valid');
+                    }
+                });
+            }
+
+            // Real-time email validation
+            if (emailInput) {
+                emailInput.addEventListener('input', function() {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (this.value && emailRegex.test(this.value)) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-valid');
+                    } else if (this.value) {
+                        this.classList.add('input-error');
+                        this.classList.remove('input-valid');
+                    } else {
+                        this.classList.remove('input-error', 'input-valid');
+                    }
+                });
+            }
+
+            // Form submission
             if (loginForm) {
                 loginForm.addEventListener('submit', function(e) {
                     e.preventDefault();
 
-                    const email = document.getElementById('email').value.trim();
-                    const password = document.getElementById('password').value.trim();
+                    const email = emailInput.value.trim();
+                    const password = passwordInput.value.trim();
                     const remember = document.getElementById('remember').checked;
 
-                    // Basic validation
+                    // Validation
                     if (!email || !password) {
                         showError('Please fill in all fields');
                         return;
                     }
 
-                    // Email validation
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailRegex.test(email)) {
                         showError('Please enter a valid email address');
                         return;
                     }
 
-                    // Password validation (minimum 6 characters)
                     if (password.length < 6) {
                         showError('Password must be at least 6 characters long');
                         return;
                     }
 
-                    // Simulate successful login
+                    // Show loading state
+                    showLoading();
                     hideError();
-                    showSuccess('Login successful! Redirecting...');
 
-                    // Store credentials if remember me is checked
-                    if (remember) {
-                        localStorage.setItem('rememberEmail', email);
-                    } else {
-                        localStorage.removeItem('rememberEmail');
-                    }
-
-                    // Redirect after 1.5 seconds
+                    // Simulate API call with timeout
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        // Store user session
+                        const userSession = {
+                            email: email,
+                            loginTime: new Date().toISOString(),
+                            remember: remember
+                        };
+                        sessionStorage.setItem('currentUser', JSON.stringify(userSession));
+
+                        if (remember) {
+                            localStorage.setItem('rememberEmail', email);
+                        } else {
+                            localStorage.removeItem('rememberEmail');
+                        }
+
+                        showSuccess('Login successful! Redirecting to dashboard...');
+                        
+                        // Redirect after 1.5 seconds
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
                     }, 1500);
                 });
+            }
 
-                // Load remembered email if exists
-                const rememberedEmail = localStorage.getItem('rememberEmail');
-                if (rememberedEmail) {
-                    document.getElementById('email').value = rememberedEmail;
-                    document.getElementById('remember').checked = true;
+            // Load remembered email
+            const rememberedEmail = localStorage.getItem('rememberEmail');
+            if (rememberedEmail && emailInput) {
+                emailInput.value = rememberedEmail;
+                document.getElementById('remember').checked = true;
+            }
+
+            // Social login buttons
+            document.querySelectorAll('.social-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const provider = this.title.split(' ')[2].toLowerCase();
+                    alert(`${provider.charAt(0).toUpperCase() + provider.slice(1)} login would be implemented with OAuth`);
+                });
+            });
+
+            // Helper functions
+            function calculatePasswordStrength(password) {
+                let strength = 0;
+                if (password.length >= 6) strength++;
+                if (password.length >= 10) strength++;
+                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+                if (/[0-9]/.test(password)) strength++;
+                if (/[^a-zA-Z0-9]/.test(password)) strength++;
+                return Math.min(strength, 3);
+            }
+
+            function updateStrengthIndicator(strength) {
+                const fill = document.getElementById('strengthFill');
+                const text = document.getElementById('strengthText');
+                const levels = ['', 'weak', 'medium', 'strong'];
+                
+                fill.className = 'strength-fill';
+                if (strength > 0) {
+                    fill.classList.add(levels[strength]);
+                    text.className = 'strength-text ' + levels[strength];
+                    text.textContent = levels[strength].charAt(0).toUpperCase() + levels[strength].slice(1) + ' password';
+                } else {
+                    text.textContent = 'Enter password';
                 }
             }
 
@@ -345,6 +559,7 @@
                 errorMessage.textContent = message;
                 errorMessage.style.display = 'block';
                 successMessage.style.display = 'none';
+                hideLoading();
             }
 
             function hideError() {
@@ -355,6 +570,16 @@
                 successMessage.textContent = message;
                 successMessage.style.display = 'block';
                 errorMessage.style.display = 'none';
+            }
+
+            function showLoading() {
+                loading.style.display = 'block';
+                loginBtn.disabled = true;
+            }
+
+            function hideLoading() {
+                loading.style.display = 'none';
+                loginBtn.disabled = false;
             }
         });
     </script>

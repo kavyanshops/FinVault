@@ -1,6 +1,54 @@
 // FinVault - Basic JavaScript Functionality
 
-// 1. Navbar scroll effect
+// 0. Check login status and update navbar
+document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const profileMenu = document.getElementById('profileMenu');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const profileToggle = document.getElementById('profileToggle');
+    const profileDropdown = document.getElementById('profileDropdown');
+    
+    if (currentUser) {
+        // User is logged in
+        if (profileMenu) profileMenu.style.display = 'block';
+        if (getStartedBtn) getStartedBtn.style.display = 'none';
+        
+        // Update profile avatar and dropdown
+        const initials = currentUser.email.split('@')[0].charAt(0).toUpperCase();
+        const profileAvatarSmall = document.getElementById('profileAvatarSmall');
+        const dropdownEmail = document.getElementById('dropdownEmail');
+        
+        if (profileAvatarSmall) profileAvatarSmall.textContent = initials;
+        if (dropdownEmail) dropdownEmail.textContent = currentUser.email;
+        
+        // Toggle profile dropdown
+        if (profileToggle) {
+            profileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (profileDropdown) {
+                    profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
+                }
+            });
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            if (profileDropdown) profileDropdown.style.display = 'none';
+        });
+    } else {
+        // User is not logged in
+        if (profileMenu) profileMenu.style.display = 'none';
+        if (getStartedBtn) getStartedBtn.style.display = 'block';
+    }
+});
+
+// Logout function
+function logout() {
+    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('rememberEmail');
+    alert('Logged out successfully!');
+    window.location.href = 'index.html';
+}
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
@@ -79,22 +127,7 @@ if (contactForm) {
     });
 }
 
-// 5. Smooth fade-in animations on page load
-window.addEventListener('load', function() {
-    const cards = document.querySelectorAll('.feature-card, .testimonial-card');
-    cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-});
-
-// 6. Button click effects and navigation
+// 5. Button click effects and navigation
 document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
     button.addEventListener('click', function(e) {
         // Check if button is "Get Started" or "Start Investing"
@@ -124,61 +157,6 @@ document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
         setTimeout(() => ripple.remove(), 600);
     });
 });
-
-// 7. Active link highlighting based on current page
-document.addEventListener('DOMContentLoaded', function() {
-    const currentLocation = location.pathname;
-    const navLinks = document.querySelectorAll('.nav-links a');
-    
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentLocation || 
-            link.getAttribute('href') === currentLocation.split('/').pop()) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
-});
-
-// 8. Hover effects on feature cards
-document.querySelectorAll('.feature-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-// 9. Simple counter animation for stats
-function animateCounter(element, target, duration = 2000) {
-    let current = 0;
-    const increment = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 16);
-}
-
-// Trigger counter on page load if stats exist
-window.addEventListener('load', function() {
-    const stats = document.querySelectorAll('.stat h3');
-    stats.forEach(stat => {
-        const text = stat.textContent;
-        const number = parseInt(text.replace(/\D/g, ''));
-        if (number) {
-            animateCounter(stat, number);
-        }
-    });
-});
-
-// 10. Console greeting
+// 6. Console greeting
 console.log('%cWelcome to FinVault! 🚀', 'color: #2563eb; font-size: 18px; font-weight: bold;');
 console.log('%cBuilding a smarter investment platform', 'color: #667eea; font-size: 14px;');

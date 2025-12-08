@@ -141,6 +141,17 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+.profile-menu {
+    position: relative;
+}
+
+.profile-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
