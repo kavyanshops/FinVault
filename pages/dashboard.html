@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinVault</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>FinVault</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="blog.html">Resources</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="nav-cta">Get Started</button>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 50vh;">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-text" style="max-width: 900px; margin: 0 auto; text-align: center;">
+                <span class="hero-badge">📊 Dashboard</span>
+                <h1 class="hero-title">Your Portfolio<br><span class="gradient-text">Overview</span></h1>
+                <p class="hero-description">A quick snapshot of your investments, portfolio value, and live stock quotes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="section-header">
+            <span class="section-tag">Portfolio</span>
+            <h2>Account Summary</h2>
+            <p>Overview of balances and recent performance</p>
+        </div>
+
+        <div class="feature-grid" style="margin-bottom: 2rem;">
+            <div class="feature-card">
+                <h3>Total Value</h3>
+                <p style="font-size:1.5rem; color:var(--primary-blue); font-weight:800;">₹5,40,000</p>
+                <p class="feature-link">View details <i class="fas fa-arrow-right"></i></p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Cash Balance</h3>
+                <p style="font-size:1.5rem; color:var(--gray-700); font-weight:700;">₹40,000</p>
+                <p class="feature-link">Add funds <i class="fas fa-arrow-right"></i></p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Today's P/L</h3>
+                <p style="font-size:1.5rem; color:var(--success-green); font-weight:800;">+₹3,200 (0.6%)</p>
+                <p class="feature-link">Performance <i class="fas fa-arrow-right"></i></p>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <span class="section-tag">Holdings</span>
+            <h2>Current Stocks</h2>
+            <p>Live prices simulated for demo purposes</p>
+        </div>
+
+        <div style="max-width: 1100px; margin: 0 auto; overflow-x: auto;">
+            <table style="width:100%; border-collapse:collapse; background:var(--white); border-radius:12px; overflow:hidden; box-shadow:var(--shadow-md);">
+                <thead style="background:var(--gray-100); color:var(--gray-800);">
+                    <tr>
+                        <th style="padding:1rem 1.25rem; text-align:left;">Symbol</th>
+                        <th style="padding:1rem 1.25rem; text-align:left;">Name</th>
+                        <th style="padding:1rem 1.25rem; text-align:right;">Qty</th>
+                        <th style="padding:1rem 1.25rem; text-align:right;">Price</th>
+                        <th style="padding:1rem 1.25rem; text-align:right;">Value</th>
+                        <th style="padding:1rem 1.25rem; text-align:right;">% Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--gray-200);">
+                        <td style="padding:0.85rem 1.25rem; font-weight:700;">AAPL</td>
+                        <td style="padding:0.85rem 1.25rem;">Apple Inc.</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">10</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">₹18,500</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">₹1,85,000</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right; color:var(--success-green);">+1.2%</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--gray-200);">
+                        <td style="padding:0.85rem 1.25rem; font-weight:700;">INFY</td>
+                        <td style="padding:0.85rem 1.25rem;">Infosys Ltd.</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">25</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">₹3,350</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">₹83,750</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right; color:#ef4444;">-0.4%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0.85rem 1.25rem; font-weight:700;">TCS</td>
+                        <td style="padding:0.85rem 1.25rem;">Tata Consultancy</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">5</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">₹3,200</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right;">₹16,000</td>
+                        <td style="padding:0.85rem 1.25rem; text-align:right; color:var(--success-green);">+0.8%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>FinVault</span>
+                </div>
+                <p>Empowering investors with intelligent financial solutions since 2025.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FinVault. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
