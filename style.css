@@ -36,14 +36,33 @@
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Light theme (default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+    --navbar-bg: rgba(255, 255, 255, 0.8);
+}
+
+/* Dark theme */
+html.dark-theme {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --border-color: #2d3561;
+    --navbar-bg: rgba(26, 26, 46, 0.95);
 }
 
 body {
     font-family: var(--font-primary);
     line-height: 1.6;
-    color: var(--gray-800);
-    background: var(--white);
+    color: var(--text-primary);
+    background: var(--bg-primary);
     overflow-x: hidden;
+    transition: var(--transition);
 }
 
 
@@ -54,9 +73,9 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--navbar-bg);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid var(--border-color);
     padding: 1rem 0;
     transition: var(--transition);
 }
@@ -64,6 +83,10 @@ body {
 .navbar.scrolled {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: var(--shadow-md);
+}
+
+html.dark-theme .navbar.scrolled {
+    background: rgba(26, 26, 46, 0.98);
 }
 
 .nav-container {
@@ -95,7 +118,7 @@ body {
 }
 
 .nav-links a {
-    color: var(--gray-700);
+    color: var(--text-primary);
     text-decoration: none;
     font-weight: 500;
     font-size: 0.95rem;
@@ -150,6 +173,21 @@ body {
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    transition: var(--transition);
+    padding: 0.5rem;
+    margin-right: 1rem;
+}
+
+.theme-toggle:hover {
+    transform: rotate(20deg);
 }
 
 .hamburger {
@@ -260,7 +298,7 @@ body {
     font-size: 4rem;
     font-weight: 800;
     line-height: 1.1;
-    color: var(--gray-900);
+    color: var(--text-primary);
     margin-bottom: 1.5rem;
     animation: slideUp 0.6s ease-out 0.2s both;
 }
@@ -285,7 +323,7 @@ body {
 
 .hero-description {
     font-size: 1.25rem;
-    color: var(--gray-600);
+    color: var(--text-secondary);
     margin-bottom: 2.5rem;
     line-height: 1.8;
     animation: slideUp 0.6s ease-out 0.4s both;
@@ -466,10 +504,10 @@ body {
 }
 
 .feature-card {
-    background: var(--white);
+    background: var(--bg-secondary);
     padding: 2.5rem;
     border-radius: 20px;
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--border-color);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -552,12 +590,12 @@ body {
 .feature-card h3 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--gray-900);
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 
 .feature-card p {
-    color: var(--gray-600);
+    color: var(--text-secondary);
     line-height: 1.8;
     margin-bottom: 1.5rem;
 }
@@ -636,10 +674,10 @@ body {
 }
 
 .testimonial-card {
-    background: var(--white);
+    background: var(--bg-secondary);
     padding: 2.5rem;
     border-radius: 20px;
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--border-color);
     transition: var(--transition);
 }
 
@@ -655,7 +693,7 @@ body {
 }
 
 .testimonial-card p {
-    color: var(--gray-700);
+    color: var(--text-primary);
     line-height: 1.8;
     margin-bottom: 2rem;
     font-size: 1.05rem;
@@ -682,13 +720,13 @@ body {
 
 .testimonial-author h4 {
     font-size: 1rem;
-    color: var(--gray-900);
+    color: var(--text-primary);
     margin-bottom: 0.25rem;
 }
 
 .testimonial-author p {
     font-size: 0.85rem;
-    color: var(--gray-600);
+    color: var(--text-secondary);
     margin: 0;
 }
 

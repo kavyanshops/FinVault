@@ -23,7 +23,32 @@
                 <li><a href="pages/blog.html">Resources</a></li>
                 <li><a href="pages/contact.html">Contact</a></li>
             </ul>
-            <button class="nav-cta">Get Started</button>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="profile-menu" id="profileMenu" style="display: none;">
+                <button class="profile-toggle" id="profileToggle">
+                    <div class="profile-avatar-small" id="profileAvatarSmall" style="width: 40px; height: 40px; background: var(--primary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; cursor: pointer;">
+                        U
+                    </div>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown" style="display: none; position: absolute; top: 100%; right: 0; background: var(--bg-secondary); border-radius: 10px; box-shadow: var(--shadow-lg); min-width: 200px; z-index: 1000; overflow: hidden;">
+                    <div style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+                        <p style="color: var(--text-secondary); font-size: 0.85rem;">Logged in as</p>
+                        <p id="dropdownEmail" style="font-weight: 600; color: var(--text-primary);"></p>
+                    </div>
+                    <a href="profile.html" style="display: block; padding: 0.75rem 1rem; color: var(--text-primary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
+                        <i class="fas fa-user"></i> My Profile
+                    </a>
+                    <a href="pages/dashboard.html" style="display: block; padding: 0.75rem 1rem; color: var(--text-primary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </a>
+                    <button onclick="logout()" style="width: 100%; padding: 0.75rem 1rem; background: none; border: none; text-align: left; color: #ef4444; cursor: pointer; border-top: 1px solid var(--border-color); font-weight: 600; transition: var(--transition);" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            <button class="nav-cta" id="getStartedBtn" style="display: none;">Get Started</button>
             <div class="hamburger">
                 <span></span>
                 <span></span>

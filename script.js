@@ -1,5 +1,30 @@
 // FinVault - Basic JavaScript Functionality
 
+// Theme Toggle Function
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        html.classList.add('dark-theme');
+        if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    // Theme toggle click handler
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const isDarkTheme = html.classList.toggle('dark-theme');
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+            themeToggle.innerHTML = isDarkTheme ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    }
+}
+
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', initThemeToggle);
+
 // 0. Check login status and update navbar
 document.addEventListener('DOMContentLoaded', function() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));

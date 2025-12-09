@@ -99,15 +99,15 @@
         }
 
         .profile-card {
-            background: var(--white);
+            background: var(--bg-secondary);
             padding: 2rem;
             border-radius: 15px;
-            border: 1px solid var(--gray-200);
+            border: 1px solid var(--border-color);
             box-shadow: var(--shadow-md);
         }
 
         .profile-card h3 {
-            color: var(--gray-900);
+            color: var(--text-primary);
             margin-bottom: 1.5rem;
             font-size: 1.2rem;
             display: flex;
@@ -125,7 +125,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .profile-stat:last-child {
@@ -133,12 +133,12 @@
         }
 
         .profile-stat-label {
-            color: var(--gray-600);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
         .profile-stat-value {
-            color: var(--gray-900);
+            color: var(--text-primary);
             font-weight: 600;
             font-size: 1rem;
         }
@@ -169,7 +169,7 @@
         }
 
         .modal-content {
-            background: var(--white);
+            background: var(--bg-primary);
             padding: 2rem;
             border-radius: 15px;
             max-width: 500px;
@@ -189,7 +189,7 @@
 
         .modal-header h2 {
             font-size: 1.5rem;
-            color: var(--gray-900);
+            color: var(--text-primary);
         }
 
         .modal-close {
@@ -197,7 +197,7 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--gray-600);
+            color: var(--text-secondary);
         }
 
         .form-group {
@@ -207,7 +207,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--gray-700);
+            color: var(--text-primary);
             font-weight: 600;
             font-size: 0.9rem;
         }
@@ -216,7 +216,9 @@
         .form-group textarea {
             width: 100%;
             padding: 0.75rem;
-            border: 2px solid var(--gray-200);
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             border-radius: 8px;
             font-size: 0.95rem;
             font-family: var(--font-primary);
@@ -247,12 +249,12 @@
         }
 
         .btn-cancel {
-            background: var(--gray-200);
-            color: var(--gray-800);
+            background: var(--border-color);
+            color: var(--text-primary);
         }
 
         .btn-cancel:hover {
-            background: var(--gray-300);
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .btn-save {
@@ -266,7 +268,7 @@
 
         .activity-item {
             padding: 1rem;
-            background: var(--gray-50);
+            background: var(--bg-primary);
             border-radius: 8px;
             margin-bottom: 0.75rem;
             border-left: 4px solid var(--primary-blue);
@@ -274,12 +276,12 @@
 
         .activity-time {
             font-size: 0.8rem;
-            color: var(--gray-600);
+            color: var(--text-secondary);
             margin-bottom: 0.25rem;
         }
 
         .activity-text {
-            color: var(--gray-800);
+            color: var(--text-primary);
             font-size: 0.95rem;
         }
 
@@ -341,6 +343,9 @@
                     </button>
                 </div>
             </div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
             <button class="nav-cta" id="getStartedBtn" style="display: none;">Get Started</button>
             <div class="hamburger">
                 <span></span>
